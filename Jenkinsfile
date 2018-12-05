@@ -35,6 +35,7 @@ pipeline {
 							credentialsId: 'GitHub_mariaocampo', 
 							url: 'https://github.com/mariaocampo/Ceiba-Estacionamiento.git'
 						]]])
+					sh 'gradle clean'
 	 			}
 	 	}
 	 	
