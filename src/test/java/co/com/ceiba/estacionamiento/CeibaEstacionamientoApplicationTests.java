@@ -12,5 +12,4 @@ public class CeibaEstacionamientoApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
