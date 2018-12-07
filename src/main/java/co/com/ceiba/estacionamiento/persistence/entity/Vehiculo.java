@@ -1,4 +1,4 @@
-package co.com.ceiba.estacionamiento.entity;
+package co.com.ceiba.estacionamiento.persistence.entity;
 
 import java.io.Serializable;
 
