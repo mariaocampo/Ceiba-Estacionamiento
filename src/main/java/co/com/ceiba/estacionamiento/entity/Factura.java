@@ -1,7 +1,7 @@
 package co.com.ceiba.estacionamiento.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,17 +24,17 @@ public class Factura implements Serializable{
 	private Vehiculo vehiculo;
 	
 	@Column(name="fechaEntrada")
-	private Date fechaEntrada;
+	private LocalDateTime fechaEntrada;
 	
 	@Column(name="fechaSalida")
-	private Date fechaSalida;
+	private LocalDateTime fechaSalida;
 	
 	@Column(name="precio")
 	private double precio;
 
-	protected Factura() { }
+	public Factura() { }
 	
-	public Factura(Long id, Vehiculo vehiculo, Date fechaEntrada, Date fechaSalida, double precio) {
+	public Factura(Long id, Vehiculo vehiculo, LocalDateTime fechaEntrada, LocalDateTime fechaSalida, double precio) {
 		super();
 		this.id = id;
 		this.vehiculo = vehiculo;
@@ -59,19 +59,19 @@ public class Factura implements Serializable{
 		this.vehiculo = vehiculo;
 	}
 
-	public Date getFechaEntrada() {
+	public LocalDateTime getFechaEntrada() {
 		return fechaEntrada;
 	}
 
-	public void setFechaEntrada(Date fechaEntrada) {
+	public void setFechaEntrada(LocalDateTime fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
 
-	public Date getFechaSalida() {
+	public LocalDateTime getFechaSalida() {
 		return fechaSalida;
 	}
 
-	public void setFechaSalida(Date fechaSalida) {
+	public void setFechaSalida(LocalDateTime fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 

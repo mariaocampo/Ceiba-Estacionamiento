@@ -1,8 +1,5 @@
 package co.com.ceiba.estacionamiento;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.mockito.Mockito.when;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

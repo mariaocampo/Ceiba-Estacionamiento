@@ -28,7 +28,7 @@ public class Vehiculo implements Serializable{
 	@Column(name="cilindraje")
 	private double cilindraje;
 	
-	protected Vehiculo() {	}
+	public Vehiculo() {	}
 
 	public Vehiculo(Long id, String placa, String tipo, double cilindraje) {
 		super();
