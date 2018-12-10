@@ -26,11 +26,11 @@ public class Vehiculo implements Serializable{
 	private String tipo;	
 	
 	@Column(name="cilindraje")
-	private String cilindraje;
+	private double cilindraje;
 	
 	protected Vehiculo() {	}
 
-	public Vehiculo(Long id, String placa, String tipo, String cilindraje) {
+	public Vehiculo(Long id, String placa, String tipo, double cilindraje) {
 		super();
 		this.id = id;
 		this.placa = placa;
@@ -62,11 +62,11 @@ public class Vehiculo implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public String getCilindraje() {
+	public double getCilindraje() {
 		return cilindraje;
 	}
 
-	public void setCilindraje(String cilindraje) {
+	public void setCilindraje(double cilindraje) {
 		this.cilindraje = cilindraje;
 	}
 }
