@@ -1,4 +1,4 @@
-package co.com.ceiba.estacionamiento.persistence.entity;
+package co.com.ceiba.estacionamiento.entity;
 
 import java.io.Serializable;
 
@@ -25,13 +25,17 @@ public class Vehiculo implements Serializable{
 	@Column(name="tipo")
 	private String tipo;	
 	
+	@Column(name="cilindraje")
+	private String cilindraje;
+	
 	protected Vehiculo() {	}
 
-	public Vehiculo(Long id, String placa, String tipo) {
+	public Vehiculo(Long id, String placa, String tipo, String cilindraje) {
 		super();
 		this.id = id;
 		this.placa = placa;
 		this.tipo = tipo;
+		this.cilindraje = cilindraje;
 	}
 
 	public Long getId() {
@@ -56,5 +60,13 @@ public class Vehiculo implements Serializable{
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getCilindraje() {
+		return cilindraje;
+	}
+
+	public void setCilindraje(String cilindraje) {
+		this.cilindraje = cilindraje;
 	}
 }
