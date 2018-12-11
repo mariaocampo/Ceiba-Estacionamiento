@@ -1,33 +1,34 @@
 package co.com.ceiba.estacionamiento.validacion;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import co.com.ceiba.estacionamiento.entity.Vehiculo;
+import co.com.ceiba.estacionamiento.dto.FacturaDTO;
 import co.com.ceiba.estacionamiento.exception.EstacionamientoException;
 import co.com.ceiba.estacionamiento.repository.FacturaRepository;
 import co.com.ceiba.estacionamiento.utils.Constantes;
 
-public class ValidacionesFactura {
+@Component
+public class ValidarCantidadVehiculos implements Validacion {
+
 
 	@Autowired
+	@Qualifier("facturaRepository")
 	FacturaRepository facturaRepository;
 	
-	public void validarDiasHabiles(String placa) {
-		
-		for (String placaInvalida: Constantes.PLACA_INVALIDA) {
-			if(placa.startsWith(placaInvalida)) throw new EstacionamientoException(Constantes.PLACA_INVALIDA_EXCEPTION);
-		}
-	}
-	
-	public void validarCantidadVehiculos(Vehiculo vehiculo) {
-		if(vehiculo.getTipo() == Constantes.TIPO_VEHICULO_CARRO && 
+	@Override
+	public void validar(FacturaDTO facturaDTO) {
+		if(facturaDTO.getTipoVehiculo().equals(Constantes.TIPO_VEHICULO_CARRO) && 
 				facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO) >= Constantes.CANTIDAD_MAXIMA_CARROS) {
 			throw new EstacionamientoException(Constantes.CAPACIDAD_MAXIMA_CARROS_EXCEPTION);
 		}
 		
-		if(vehiculo.getTipo() == Constantes.TIPO_VEHICULO_MOTO && 
+		if(facturaDTO.getTipoVehiculo().equals(Constantes.TIPO_VEHICULO_MOTO) && 
 				facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_MOTO) >= Constantes.CANTIDAD_MAXIMA_MOTOS) {
 			throw new EstacionamientoException(Constantes.CAPACIDAD_MAXIMA_CARROS_EXCEPTION);
-		}
+		}		
 	}
+
+	
 }

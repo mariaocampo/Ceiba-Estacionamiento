@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +22,9 @@ public class Factura implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name="vehiculo")
+	//@Column(name="vehiculo")
+	@ManyToOne
+	@JoinColumn(name="placa")
 	private Vehiculo vehiculo;
 	
 	@Column(name="fechaEntrada")

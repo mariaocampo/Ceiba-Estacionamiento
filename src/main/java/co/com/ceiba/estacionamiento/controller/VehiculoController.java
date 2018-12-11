@@ -19,8 +19,8 @@ public class VehiculoController {
 	VehiculoService vehiculoService;
 	
 	@PostMapping("/ingresar_vehiculos")
-	public Long ingresarVehiculo(@RequestBody Vehiculo vehiculo){
+	public String ingresarVehiculo(@RequestBody Vehiculo vehiculo){
 		vehiculoService.registrarVehiculo(vehiculo);
-		return vehiculo.getId();
+		return vehiculo.getPlaca();
 	}
 }

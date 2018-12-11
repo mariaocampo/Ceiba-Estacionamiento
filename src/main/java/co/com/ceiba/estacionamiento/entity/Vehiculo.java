@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,11 +12,8 @@ import javax.persistence.Table;
 public class Vehiculo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
 	
+	@Id
 	@Column(name="placa")
 	private String placa;
 	
@@ -30,20 +25,11 @@ public class Vehiculo implements Serializable{
 	
 	public Vehiculo() {	}
 
-	public Vehiculo(Long id, String placa, String tipo, double cilindraje) {
+	public Vehiculo(String placa, String tipo, double cilindraje) {
 		super();
-		this.id = id;
 		this.placa = placa;
 		this.tipo = tipo;
 		this.cilindraje = cilindraje;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getPlaca() {

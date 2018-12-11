@@ -10,7 +10,7 @@ import co.com.ceiba.estacionamiento.entity.Factura;
 public interface FacturaRepository extends JpaRepository<Factura, Long>{
 
 	@Query(
-			value = "SELECT COUNT(f) FROM Factura f WHERE f.tipo = ?1 AND f.fecha_entrada = null",
+			value = "SELECT COUNT(*) FROM Factura f LEFT OUTER JOIN Vehiculo v ON v.placa = f.placa WHERE v.tipo = ?1 AND f.fecha_salida = null",
 			nativeQuery = true)
 	int consultarCantidadVehiculosPorTipo(String tipo);
 }
