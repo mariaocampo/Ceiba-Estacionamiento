@@ -1,5 +1,9 @@
 package co.com.ceiba.estacionamiento.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -9,7 +13,12 @@ import co.com.ceiba.estacionamiento.entity.Factura;
 import co.com.ceiba.estacionamiento.repository.FacturaRepository;
 import co.com.ceiba.estacionamiento.repository.VehiculoRepository;
 import co.com.ceiba.estacionamiento.service.FacturaService;
+import co.com.ceiba.estacionamiento.utils.Constantes;
 import co.com.ceiba.estacionamiento.utils.MapeoDTO;
+import co.com.ceiba.estacionamiento.validacion.Validacion;
+import co.com.ceiba.estacionamiento.validacion.ValidarCantidadVehiculos;
+import co.com.ceiba.estacionamiento.validacion.ValidarPlaca;
+import co.com.ceiba.estacionamiento.validacion.ValidarTipoVehiculo;
 
 @Service("facturaService")
 public class FacturaServiceImpl implements FacturaService {
@@ -22,13 +31,37 @@ public class FacturaServiceImpl implements FacturaService {
 	@Qualifier("vehiculoRepository")
 	VehiculoRepository vehiculoRepository;
 	
+	@Autowired
+	ValidarPlaca validarPlaca;
+	
+	@Autowired
+	ValidarCantidadVehiculos validarCantidadVehiculos;
+	
+	@Autowired
+	ValidarTipoVehiculo validarTipoVehiculo;
+	
+	List<Validacion> validacionesFactura;
+
 	MapeoDTO mapeoDTO = new MapeoDTO();
 	
 	@Override
 	public String registrarFactura(FacturaDTO facturaDTO) {
+		
+		facturaDTO.setFechaIngreso(LocalDateTime.now());
+		facturaDTO.setPrecio(Constantes.PRECIO_REGISTRO_FACTURA);
+		
+		validacionesFactura = new ArrayList<>();
+		validacionesFactura.add(validarTipoVehiculo);
+		validacionesFactura.add(validarPlaca);
+		validacionesFactura.add(validarCantidadVehiculos);
+		
+		for(Validacion validacion: validacionesFactura) {
+			validacion.validar(facturaDTO);
+		}
+		
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDTO);
 		vehiculoRepository.save(factura.getVehiculo());
-		return facturaRepository.save(factura).getId().toString();
+		return facturaRepository.save(factura).getId().toString(); 
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package co.com.ceiba.estacionamiento;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.any;
 import static org.mockito.Mockito.when;
 
 import org.junit.Assert;
@@ -10,25 +10,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import co.com.ceiba.estacionamiento.controller.FacturaController;
 import co.com.ceiba.estacionamiento.dto.FacturaDTO;
 import co.com.ceiba.estacionamiento.entity.Factura;
+import co.com.ceiba.estacionamiento.entity.Vehiculo;
 import co.com.ceiba.estacionamiento.repository.FacturaRepository;
 import co.com.ceiba.estacionamiento.repository.VehiculoRepository;
+import co.com.ceiba.estacionamiento.service.impl.FacturaServiceImpl;
 import co.com.ceiba.estacionamiento.utils.Constantes;
 import co.com.ceiba.estacionamiento.utils.FacturaTestDataBuilder;
+import co.com.ceiba.estacionamiento.utils.MapeoDTO;
 import co.com.ceiba.estacionamiento.validacion.ValidarCantidadVehiculos;
 import co.com.ceiba.estacionamiento.validacion.ValidarPlaca;
 import co.com.ceiba.estacionamiento.validacion.ValidarTipoVehiculo;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FacturaTest {
-
+public class FacturaServiceTest {
 	
 	@InjectMocks
-	FacturaController facturaController;
+	FacturaServiceImpl facturaService = new FacturaServiceImpl();
 
 	@Mock
 	FacturaRepository facturaRepository;
@@ -45,36 +45,22 @@ public class FacturaTest {
 	@Mock
 	ValidarTipoVehiculo validarTipoVehiculo;
 	
+	MapeoDTO mapeoDTO = new MapeoDTO();
+	
 	@Test
 	public void debeGenerarUnaNuevaFactura() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
-		
-		//when(repositorioGarantia.obtenerProductoConGarantiaPorCodigo(producto.getCodigo())).thenReturn(producto);
-		when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO)).thenReturn(Constantes.CAPACIDAD_CARROS_MENOR);
-		when(facturaRepository.save(Mockito.any(Factura.class))).thenReturn(new Factura());
+		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
+
+		//when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO)).thenReturn(Constantes.CAPACIDAD_CARROS_MENOR);
+		when(facturaRepository.save(Mockito.any(Factura.class))).thenReturn(factura);
+		when(vehiculoRepository.save(Mockito.any(Vehiculo.class))).thenReturn(new Vehiculo());
 		
 		//Act
-		String result = facturaController.registrarFactura(facturaDto);
+		String result = facturaService.registrarFactura(facturaDto);
 		
 		//Assert
-		Assert.assertEquals(result, facturaDto.getId());
-	}
-	
-	@Test
-	public void debeArrojarExcepcionPorTipoVehiculo() {
-		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_INVALIDO).build();
-		
-		try {
-			// Act 
-			String result = facturaController.registrarFactura(facturaDto);
-			
-			//Assert
-			Assert.assertEquals(result, facturaDto.getId());
-		}
-		catch (Exception e) {
-		    assertTrue(e.getMessage().equals("No se permite este tipo de vehículo"));
-		}
+		Assert.assertEquals(result, facturaDto.getId().toString());
 	}
 }
