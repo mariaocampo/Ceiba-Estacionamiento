@@ -29,4 +29,9 @@ public class FacturaController {
 	public int consultarCantidad(@RequestBody String tipo) {
 		return facturaService.consultarCantidadVehiculosPorTipo(tipo);
 	}
+	
+	@PostMapping("/retirar_vehiculo")
+	public FacturaDTO retirarVehiculo(@RequestBody String placa) {
+		return facturaService.retirarVehiculo(placa);
+	}
 }

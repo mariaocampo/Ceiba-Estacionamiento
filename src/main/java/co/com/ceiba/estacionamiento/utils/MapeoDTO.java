@@ -16,4 +16,10 @@ public class MapeoDTO {
 		
 		return factura;
 	}
+	
+	public FacturaDTO convertirFacturaEntidad(Factura factura) {
+		FacturaDTO facturaDto = new FacturaDTO(); 
+		
+		return facturaDto;
+	}
 }

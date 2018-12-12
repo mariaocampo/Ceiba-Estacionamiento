@@ -1,5 +1,6 @@
 package co.com.ceiba.estacionamiento.service.impl;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import co.com.ceiba.estacionamiento.repository.VehiculoRepository;
 import co.com.ceiba.estacionamiento.service.FacturaService;
 import co.com.ceiba.estacionamiento.utils.Constantes;
 import co.com.ceiba.estacionamiento.utils.MapeoDTO;
+import co.com.ceiba.estacionamiento.utils.TiempoFactura;
 import co.com.ceiba.estacionamiento.validacion.Validacion;
 import co.com.ceiba.estacionamiento.validacion.ValidarCantidadVehiculos;
 import co.com.ceiba.estacionamiento.validacion.ValidarPlaca;
@@ -39,6 +41,9 @@ public class FacturaServiceImpl implements FacturaService {
 	
 	@Autowired
 	ValidarTipoVehiculo validarTipoVehiculo;
+	
+	@Autowired
+	TiempoFactura tiempoFactura;
 	
 	List<Validacion> validacionesFactura;
 
@@ -69,4 +74,14 @@ public class FacturaServiceImpl implements FacturaService {
 		return facturaRepository.consultarCantidadVehiculosPorTipo(tipoVehiculo);
 	}
 
+	@Override
+	public FacturaDTO retirarVehiculo(String placa) {
+		Factura factura = facturaRepository.consultarFacturaPorPlaca(placa);
+		factura.setFechaSalida(LocalDateTime.now());
+		
+		tiempoFactura.calcularTiempoFactura(Timestamp.valueOf(factura.getFechaEntrada()), Timestamp.valueOf(factura.getFechaSalida()));
+					
+		return mapeoDTO.convertirFacturaEntidad(factura);
+	}
+	
 }

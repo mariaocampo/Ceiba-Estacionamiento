@@ -44,7 +44,7 @@ public class FacturaTestDataBuilder {
 		this.fechaIngreso = fecha;
 		return this;
 	}
-	
+		
 	public FacturaDTO build() {
 		return new FacturaDTO(id, tipo, placa, cilindraje, fechaIngreso, fechaSalida, precio);
 	}

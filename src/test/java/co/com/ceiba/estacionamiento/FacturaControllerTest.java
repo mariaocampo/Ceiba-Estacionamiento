@@ -48,4 +48,18 @@ public class FacturaControllerTest {
 		//Assert
 		Assert.assertEquals(result, 20);
 	}
+	
+	@Test
+	public void debeLlamarServicioParaRetirarVehiculo() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().build();
+		
+		when(facturaService.retirarVehiculo(Constantes.PLACA_VEHICULO_CARRO)).thenReturn(facturaDto);
+
+		//Act
+		FacturaDTO result = facturaController.retirarVehiculo(Constantes.PLACA_VEHICULO_CARRO);
+		
+		//Assert
+		Assert.assertEquals(result, facturaDto);
+	}
 }

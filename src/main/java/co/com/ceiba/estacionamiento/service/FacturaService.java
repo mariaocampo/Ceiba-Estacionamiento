@@ -8,4 +8,6 @@ public interface FacturaService {
 	
 	public int consultarCantidadVehiculosPorTipo(String tipoVehiculo);
 	
+	public FacturaDTO retirarVehiculo(String placa);
+	
 }

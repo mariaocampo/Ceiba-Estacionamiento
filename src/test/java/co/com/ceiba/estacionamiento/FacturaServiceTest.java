@@ -19,6 +19,7 @@ import co.com.ceiba.estacionamiento.service.impl.FacturaServiceImpl;
 import co.com.ceiba.estacionamiento.utils.Constantes;
 import co.com.ceiba.estacionamiento.utils.FacturaTestDataBuilder;
 import co.com.ceiba.estacionamiento.utils.MapeoDTO;
+import co.com.ceiba.estacionamiento.utils.TiempoFactura;
 import co.com.ceiba.estacionamiento.validacion.ValidarCantidadVehiculos;
 import co.com.ceiba.estacionamiento.validacion.ValidarPlaca;
 import co.com.ceiba.estacionamiento.validacion.ValidarTipoVehiculo;
@@ -43,6 +44,9 @@ public class FacturaServiceTest {
 	
 	@Mock
 	ValidarTipoVehiculo validarTipoVehiculo;
+	
+	@Mock
+	TiempoFactura tiempoFactura;
 	
 	MapeoDTO mapeoDTO = new MapeoDTO();
 	
@@ -74,4 +78,16 @@ public class FacturaServiceTest {
 		Assert.assertEquals(cantidad, 10);
 	}
 	
+	@Test
+	public void debeRetirarVehiculo() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().build();
+		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
+		
+		when(facturaRepository.consultarFacturaPorPlaca(Constantes.PLACA_VEHICULO_CARRO)).thenReturn(factura);
+		//when(tiempoFactura.calcularTiempoFactura(new Date(), new Date()));
+		
+		FacturaDTO result = facturaService.retirarVehiculo(Constantes.PLACA_VEHICULO_CARRO);
+
+	}
 }
