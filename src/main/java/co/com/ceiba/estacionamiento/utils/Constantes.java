@@ -3,7 +3,9 @@ package co.com.ceiba.estacionamiento.utils;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public final class Constantes {
+public class Constantes {
+	
+	private Constantes() {	}
 	
 	public static final double PRECIO_REGISTRO_FACTURA = 0;
 
