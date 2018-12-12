@@ -1,6 +1,5 @@
 package co.com.ceiba.estacionamiento;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.mockito.Mockito.when;
 
 import org.junit.Assert;
@@ -53,7 +52,6 @@ public class FacturaServiceTest {
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
 
-		//when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO)).thenReturn(Constantes.CAPACIDAD_CARROS_MENOR);
 		when(facturaRepository.save(Mockito.any(Factura.class))).thenReturn(factura);
 		when(vehiculoRepository.save(Mockito.any(Vehiculo.class))).thenReturn(new Vehiculo());
 		
@@ -63,4 +61,17 @@ public class FacturaServiceTest {
 		//Assert
 		Assert.assertEquals(result, facturaDto.getId().toString());
 	}
+	
+	@Test
+	public void debeConsultarCantidadVehiculos() {
+		//Arrange
+		when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO)).thenReturn(Constantes.CAPACIDAD_CARROS_MENOR);
+	
+		//Act
+		int cantidad = facturaService.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO);
+		
+		//Assert
+		Assert.assertEquals(cantidad, 10);
+	}
+	
 }

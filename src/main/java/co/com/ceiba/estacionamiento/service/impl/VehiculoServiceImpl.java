@@ -18,7 +18,6 @@ public class VehiculoServiceImpl implements VehiculoService {
 	@Override
 	public void registrarVehiculo(Vehiculo vehiculo) {
 		vehiculoRepository.save(vehiculo);
-		
 	}
 
 }

@@ -19,6 +19,7 @@ public class ValidarCantidadVehiculos implements Validacion {
 	
 	@Override
 	public void validar(FacturaDTO facturaDTO) {
+		
 		if(facturaDTO.getTipoVehiculo().equals(Constantes.TIPO_VEHICULO_CARRO) && 
 				facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO) >= Constantes.CANTIDAD_MAXIMA_CARROS) {
 			throw new EstacionamientoException(Constantes.CAPACIDAD_MAXIMA_CARROS_EXCEPTION);
@@ -26,7 +27,7 @@ public class ValidarCantidadVehiculos implements Validacion {
 		
 		if(facturaDTO.getTipoVehiculo().equals(Constantes.TIPO_VEHICULO_MOTO) && 
 				facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_MOTO) >= Constantes.CANTIDAD_MAXIMA_MOTOS) {
-			throw new EstacionamientoException(Constantes.CAPACIDAD_MAXIMA_CARROS_EXCEPTION);
+			throw new EstacionamientoException(Constantes.CAPACIDAD_MAXIMA_MOTOS_EXCEPTION);
 		}		
 	}
 
