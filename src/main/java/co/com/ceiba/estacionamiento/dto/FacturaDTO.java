@@ -28,7 +28,6 @@ public class FacturaDTO {
 	}
 
 	public FacturaDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void setId(Long id) {
