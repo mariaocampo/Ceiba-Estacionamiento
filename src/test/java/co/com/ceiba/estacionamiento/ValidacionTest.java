@@ -52,6 +52,21 @@ public class ValidacionTest {
 	}
 	
 	@Test
+	public void debeValidarTipoVehiculo() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
+		
+		try {
+			// Act 
+			validarTipoVehiculo.validar(facturaDto);	
+		}
+		catch (Exception e) {
+			//Assert
+			assertTrue(e.getMessage().equals("No se permite este tipo de vehículo"));
+		}
+	}
+	
+	@Test
 	public void debeArrojarExcepcionPorCantidadCarrosMaxima() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
@@ -86,6 +101,23 @@ public class ValidacionTest {
 	}
 	
 	@Test
+	public void debeValidarCantidadCarrosMenor() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
+		
+		when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO)).thenReturn(Constantes.CAPACIDAD_CARROS_MENOR);
+
+		try{
+			// Act 
+			validarCantidadVehiculos.validar(facturaDto);	
+		}
+		catch (Exception e) {
+			//Assert
+			assertTrue(e.getMessage().equals("No hay suficientes espacios para motos disponibles"));
+		}
+	}
+	
+	@Test
 	public void debeArrojarExcepcionPorPlacaInvalida() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_NO_PERMITIDA_PLACA_A).build();
@@ -96,7 +128,20 @@ public class ValidacionTest {
 		} catch (Exception e) {
 			//Assert
 			assertTrue(e.getMessage().equals("No tiene permisos para ingresar este día"));
-		}
-			
+		}	
+	}
+	
+	@Test
+	public void debeValidarLosDiasValidosDeLaPlaca() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_PERMITIDA_PLACA_A).build();
+		
+		try {
+			//Act
+			validarPlaca.validar(facturaDto);
+		} catch (Exception e) {
+			//Assert
+			assertTrue(e.getMessage().equals("No tiene permisos para ingresar este día"));
+		}	
 	}
 }

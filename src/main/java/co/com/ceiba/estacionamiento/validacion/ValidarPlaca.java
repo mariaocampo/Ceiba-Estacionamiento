@@ -15,7 +15,9 @@ public class ValidarPlaca implements Validacion {
 	public void validar(FacturaDTO facturaDTO) {
 		for (String placaInvalida: Constantes.PLACA_INVALIDA) {
 			if(!(facturaDTO.getFechaIngreso().getDayOfWeek().equals(DayOfWeek.MONDAY) || facturaDTO.getFechaIngreso().getDayOfWeek().equals(DayOfWeek.SUNDAY))) {
-				if(facturaDTO.getPlaca().startsWith(placaInvalida)) throw new EstacionamientoException(Constantes.PLACA_INVALIDA_EXCEPTION);
+				if(facturaDTO.getPlaca().startsWith(placaInvalida)) {
+					throw new EstacionamientoException(Constantes.PLACA_INVALIDA_EXCEPTION);
+				}
 			}
 		}		
 	}
