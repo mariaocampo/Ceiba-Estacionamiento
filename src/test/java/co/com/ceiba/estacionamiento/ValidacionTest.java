@@ -149,9 +149,23 @@ public class ValidacionTest {
 	}
 	
 	@Test
-	public void debeValidarLosDiasValidosDeLaPlaca() {
+	public void debeValidarLosDiasValidosDeLaPlacaLunes() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_PERMITIDA_PLACA_A).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_PERMITIDA_LUNES_PLACA_A).build();
+		
+		try {
+			//Act
+			validarPlaca.validar(facturaDto);
+		} catch (Exception e) {
+			//Assert
+			assertTrue(e.getMessage().equals("No tiene permisos para ingresar este día"));
+		}	
+	}
+	
+	@Test
+	public void debeValidarLosDiasValidosDeLaPlacaDomingo() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_PERMITIDA_DOMINGO_PLACA_A).build();
 		
 		try {
 			//Act
