@@ -118,6 +118,23 @@ public class ValidacionTest {
 	}
 	
 	@Test
+	public void debeValidarCantidadMotosMenor() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
+		
+		when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_MOTO)).thenReturn(Constantes.CAPACIDAD_MOTOS_MENOR);
+
+		try{
+			// Act 
+			validarCantidadVehiculos.validar(facturaDto);	
+		}
+		catch (Exception e) {
+			//Assert
+			assertTrue(e.getMessage().equals("No hay suficientes espacios para motos disponibles"));
+		}
+	}
+	
+	@Test
 	public void debeArrojarExcepcionPorPlacaInvalida() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_NO_PERMITIDA_PLACA_A).build();
