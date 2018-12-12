@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 
 public class FacturaDTO {
 
-	public Long id;
-	public String tipoVehiculo;
-	public String placa;
-	public double cilindraje;
-	public LocalDateTime fechaIngreso;
-	public LocalDateTime fechaSalida;
-	public double precio;
+	private Long id;
+	private String tipoVehiculo;
+	private String placa;
+	private double cilindraje;
+	private LocalDateTime fechaIngreso;
+	private LocalDateTime fechaSalida;
+	private double precio;
+	
 	public Long getId() {
 		return id;
 	}
