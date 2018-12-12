@@ -52,9 +52,24 @@ public class ValidacionTest {
 	}
 	
 	@Test
-	public void debeValidarTipoVehiculo() {
+	public void debeValidarTipoVehiculoCarro() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
+		
+		try {
+			// Act 
+			validarTipoVehiculo.validar(facturaDto);	
+		}
+		catch (Exception e) {
+			//Assert
+			assertTrue(e.getMessage().equals("No se permite este tipo de vehículo"));
+		}
+	}
+	
+	@Test
+	public void debeValidarTipoVehiculoMoto() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
 		
 		try {
 			// Act 
@@ -166,6 +181,20 @@ public class ValidacionTest {
 	public void debeValidarLosDiasValidosDeLaPlacaDomingo() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_PERMITIDA_DOMINGO_PLACA_A).build();
+		
+		try {
+			//Act
+			validarPlaca.validar(facturaDto);
+		} catch (Exception e) {
+			//Assert
+			assertTrue(e.getMessage().equals("No tiene permisos para ingresar este día"));
+		}	
+	}
+	
+	@Test
+	public void debeValidarLosDiasyPlaca() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_VEHICULO_CARRO, Constantes.FECHA_NO_PERMITIDA_PLACA_A).build();
 		
 		try {
 			//Act
