@@ -1,4 +1,4 @@
-package co.com.ceiba.estacionamiento;
+package co.com.ceiba.estacionamiento.controllerTest;
 
 import org.junit.Assert;
 import org.junit.Test;

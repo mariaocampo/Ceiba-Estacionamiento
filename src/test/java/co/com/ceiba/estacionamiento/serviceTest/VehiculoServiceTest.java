@@ -1,4 +1,4 @@
-package co.com.ceiba.estacionamiento;
+package co.com.ceiba.estacionamiento.serviceTest;
 
 import static org.mockito.Mockito.when;
 

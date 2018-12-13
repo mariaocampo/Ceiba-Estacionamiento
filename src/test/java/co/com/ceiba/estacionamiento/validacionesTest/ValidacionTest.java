@@ -1,9 +1,8 @@
-package co.com.ceiba.estacionamiento;
+package co.com.ceiba.estacionamiento.validacionesTest;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,7 +14,6 @@ import co.com.ceiba.estacionamiento.repository.FacturaRepository;
 import co.com.ceiba.estacionamiento.repository.VehiculoRepository;
 import co.com.ceiba.estacionamiento.utils.Constantes;
 import co.com.ceiba.estacionamiento.utils.FacturaTestDataBuilder;
-import co.com.ceiba.estacionamiento.utils.TiempoFactura;
 import co.com.ceiba.estacionamiento.validacion.ValidarCantidadVehiculos;
 import co.com.ceiba.estacionamiento.validacion.ValidarPlaca;
 import co.com.ceiba.estacionamiento.validacion.ValidarTipoVehiculo;
@@ -37,9 +35,6 @@ public class ValidacionTest {
 	
 	@InjectMocks
 	ValidarTipoVehiculo validarTipoVehiculo;
-	
-	@InjectMocks
-	TiempoFactura tiempoFactura;
 	
 	@Test
 	public void debeArrojarExcepcionPorTipoVehiculo() {
@@ -210,17 +205,4 @@ public class ValidacionTest {
 		}	
 	}
 	
-	@Test
-	public void debeCalcularTiempoDeCobro() {
-		//Arrange
-		
-		//Act
-		tiempoFactura.calcularTiempoFactura(Constantes.FECHA_INGRESO_TEST, Constantes.FECHA_SALIDA_TEST);
-		
-		//Assert
-		Assert.assertEquals(Constantes.TIEMPO_FACTURA_TEST.dias, tiempoFactura.dias);
-		Assert.assertEquals(Constantes.TIEMPO_FACTURA_TEST.horas, tiempoFactura.horas);
-		Assert.assertEquals(Constantes.TIEMPO_FACTURA_TEST.minutos, tiempoFactura.minutos);
-		Assert.assertEquals(Constantes.TIEMPO_FACTURA_TEST.segundos, tiempoFactura.segundos);
-	}
 }

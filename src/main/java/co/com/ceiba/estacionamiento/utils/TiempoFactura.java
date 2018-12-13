@@ -23,7 +23,6 @@ public class TiempoFactura {
 	}
 
 	public void calcularTiempoFactura(Date fechaIngreso, Date fechaSalida) {
-		//this.dias = Duration.between(fechaIngreso, fechaSalida).toDays();
 		
 		long periodo = fechaSalida.getTime() - fechaIngreso.getTime();;
 		
@@ -42,6 +41,13 @@ public class TiempoFactura {
 		periodo = periodo % formatoMinutos;
 		
 		this.segundos = periodo / formatoSegundos;
+		
+		redondearTiempo();
+	}
+
+	private void redondearTiempo() {
+		this.minutos += (this.segundos > 0 ? 1 : 0);
+		this.horas += (this.minutos > 0 ? 1 : 0);
 	}
 
 }
