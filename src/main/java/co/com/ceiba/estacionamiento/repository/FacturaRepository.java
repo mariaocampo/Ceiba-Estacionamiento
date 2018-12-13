@@ -15,7 +15,7 @@ public interface FacturaRepository extends JpaRepository<Factura, Long>{
 	public int consultarCantidadVehiculosPorTipo(String tipo);
 	
 	@Query(
-			value = "SELECT f FROM Factura f LEFT OUTER JOIN Vehiculo v ON v.placa = f.placa",
+			value = "SELECT * FROM Factura f LEFT OUTER JOIN Vehiculo v ON v.placa = f.placa WHERE f.placa = ?1",
 			nativeQuery = true)
 	public Factura consultarFacturaPorPlaca(String placa);
 }
