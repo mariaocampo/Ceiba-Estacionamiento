@@ -39,6 +39,7 @@ public class Constantes {
 	public static final int CAPACIDAD_CARROS_MENOR = 10;
 	public static final int CAPACIDAD_MOTOS_MENOR = 9;
 	public static final String PLACA_INICAL_A = "AOR123";
+	public static final int CILINDRAJE_TEST = 600;
 	public static final LocalDateTime FECHA_NO_PERMITIDA_PLACA_A = LocalDateTime.of(2018, 12, 12, 8, 28);
 	public static final LocalDateTime FECHA_PERMITIDA_LUNES_PLACA_A = LocalDateTime.of(2018, 12, 17, 8, 28);
 	public static final LocalDateTime FECHA_PERMITIDA_DOMINGO_PLACA_A = LocalDateTime.of(2018, 12, 16, 8, 28);

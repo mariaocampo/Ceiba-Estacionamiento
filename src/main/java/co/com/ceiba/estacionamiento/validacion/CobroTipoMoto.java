@@ -16,7 +16,7 @@ public class CobroTipoMoto implements CobroVehiculo{
 		precio += Constantes.PRECIO_DIA_MOTO * tiempoFactura.dias;
 		precio += (tiempoFactura.horas >= Constantes.LIMITE_HORAS_COBRO_DIA ? Constantes.PRECIO_DIA_MOTO : Constantes.PRECIO_HORA_MOTO * tiempoFactura.horas);
 
-		factura.setPrecio(precio);
+		factura.setPrecio(factura.getVehiculo().getCilindraje() > Constantes.LIMITE_CILINDRAJE ? precio += Constantes.PRECIO_EXCEDENTE_MOTO : precio);
 	}
 
 }

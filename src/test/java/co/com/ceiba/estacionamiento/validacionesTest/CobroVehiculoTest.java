@@ -97,4 +97,14 @@ public class CobroVehiculoTest {
 		
 		Assert.assertEquals(47500, factura.getPrecio(), 47500);
 	}
+	
+	@Test
+	public void debeCalcularCobroExcedenteCilindraje() {
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porCilindraje(Constantes.CILINDRAJE_TEST).build();
+		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
+		
+		cobroTipoMoto.cobro(Constantes.TIEMPO_FACTURA_TEST, factura);
+		
+		Assert.assertEquals(49500, factura.getPrecio(), 49500);
+	}
 }

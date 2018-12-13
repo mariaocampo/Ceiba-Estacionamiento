@@ -36,6 +36,7 @@ public class FacturaTestDataBuilder {
 	
 	public FacturaTestDataBuilder porCilindraje(double cilindraje) {
 		this.cilindraje = cilindraje;
+		this.tipo = Constantes.TIPO_VEHICULO_MOTO;
 		return this;
 	}
 	
