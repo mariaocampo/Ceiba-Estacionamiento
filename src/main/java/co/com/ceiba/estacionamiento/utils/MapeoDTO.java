@@ -19,6 +19,13 @@ public class MapeoDTO {
 	
 	public FacturaDTO convertirFacturaEntidad(Factura factura) {
 		FacturaDTO facturaDto = new FacturaDTO(); 
+		facturaDto.setId(factura.getId());
+		facturaDto.setPrecio(factura.getPrecio());
+		facturaDto.setCilindraje(factura.getVehiculo().getCilindraje());
+		facturaDto.setFechaIngreso(factura.getFechaEntrada());
+		facturaDto.setFechaSalida(factura.getFechaSalida());
+		facturaDto.setPlaca(factura.getVehiculo().getPlaca());
+		facturaDto.setTipoVehiculo(factura.getVehiculo().getTipo());
 		
 		return facturaDto;
 	}

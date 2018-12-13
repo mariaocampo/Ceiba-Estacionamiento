@@ -18,6 +18,7 @@ import co.com.ceiba.estacionamiento.utils.Constantes;
 import co.com.ceiba.estacionamiento.utils.MapeoDTO;
 import co.com.ceiba.estacionamiento.utils.TiempoFactura;
 import co.com.ceiba.estacionamiento.validacion.CobroTipoCarro;
+import co.com.ceiba.estacionamiento.validacion.CobroTipoMoto;
 import co.com.ceiba.estacionamiento.validacion.Validacion;
 import co.com.ceiba.estacionamiento.validacion.ValidarCantidadVehiculos;
 import co.com.ceiba.estacionamiento.validacion.ValidarPlaca;
@@ -48,6 +49,9 @@ public class FacturaServiceImpl implements FacturaService {
 	
 	@Autowired
 	CobroTipoCarro cobroTipoCarro;
+	
+	@Autowired
+	CobroTipoMoto cobroTipoMoto;
 	
 	List<Validacion> validacionesFactura;
 
@@ -87,6 +91,8 @@ public class FacturaServiceImpl implements FacturaService {
 		
 		if(factura.getVehiculo().getTipo().equals(Constantes.TIPO_VEHICULO_CARRO)) {
 			cobroTipoCarro.cobro(tiempoFactura, factura);
+		}else {
+			cobroTipoMoto.cobro(tiempoFactura, factura);
 		}
 		
 		facturaRepository.save(factura);

@@ -60,4 +60,19 @@ public class TiempoVehiculoTest {
 		Assert.assertEquals(10, tiempoFactura.segundos);
 		
 	}
+	
+	@Test
+	public void debeCalcularTiempoDeCobroHoras() {
+		//Arrange
+
+		//Act
+		tiempoFactura.calcularTiempoFactura(Timestamp.valueOf(Constantes.FECHA_INGRESO_TEST), Timestamp.valueOf(Constantes.FECHA_SALIDA_TEST_HORA));
+		
+		//Assert
+		Assert.assertEquals(11, tiempoFactura.dias);
+		Assert.assertEquals(3, tiempoFactura.horas);
+		Assert.assertEquals(0, tiempoFactura.minutos);
+		Assert.assertEquals(0, tiempoFactura.segundos);
+		
+	}
 }

@@ -46,6 +46,7 @@ public class Constantes {
 	public static final LocalDateTime FECHA_SALIDA_TEST = LocalDateTime.of(2018, 12, 12, 10, 30);
 	public static final LocalDateTime FECHA_SALIDA_TEST_SEGUNDOS = LocalDateTime.of(2018, 12, 13, 11, 00, 01);
 	public static final LocalDateTime FECHA_SALIDA_TEST_MINUTOS = LocalDateTime.of(2018, 12, 12, 8, 20, 10);
+	public static final LocalDateTime FECHA_SALIDA_TEST_HORA = LocalDateTime.of(2018, 12, 12, 11, 20, 0);
 	public static final TiempoFactura TIEMPO_FACTURA_TEST = new TiempoFactura(11, 2, 10, 0);
 
 }
