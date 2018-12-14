@@ -2,6 +2,9 @@ package co.com.ceiba.estacionamiento.controllerTest;
 
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,4 +65,27 @@ public class FacturaControllerTest {
 		//Assert
 		Assert.assertEquals(result, facturaDto);
 	}
+	
+	@Test
+	public void debeLlamarServicioParaConsultarFacturasActivos() {
+		//Arrange
+		List<FacturaDTO> listaFacturasActivas = crearListaFacturas();
+
+		when(facturaService.consultarFacturasActivas()).thenReturn(listaFacturasActivas);
+
+		//Act
+		List<FacturaDTO> result = facturaController.consultarFacturasActivas();
+		
+		//Assert
+		Assert.assertEquals(result, listaFacturasActivas);
+	}
+
+	private List<FacturaDTO> crearListaFacturas() {
+		List<FacturaDTO> listaFacturasActivas = new ArrayList<>();
+		listaFacturasActivas.add(new FacturaTestDataBuilder().build());
+		listaFacturasActivas.add(new FacturaTestDataBuilder().porPlaca(Constantes.PLACA_VEHICULO_MOTO).build());
+		
+		return listaFacturasActivas;
+	}
+	
 }

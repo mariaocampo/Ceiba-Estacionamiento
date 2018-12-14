@@ -39,7 +39,7 @@ public class ValidacionTest {
 	@Test
 	public void debeArrojarExcepcionPorTipoVehiculo() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_INVALIDO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_INVALIDO,Constantes.PLACA_VEHICULO_MOTO).build();
 		
 		try {
 			// Act 
@@ -54,7 +54,7 @@ public class ValidacionTest {
 	@Test
 	public void debeValidarTipoVehiculoCarro() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO, Constantes.PLACA_VEHICULO_CARRO).build();
 		
 		try {
 			// Act 
@@ -69,7 +69,7 @@ public class ValidacionTest {
 	@Test
 	public void debeValidarTipoVehiculoMoto() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO,Constantes.PLACA_VEHICULO_MOTO).build();
 		
 		try {
 			// Act 
@@ -84,7 +84,7 @@ public class ValidacionTest {
 	@Test
 	public void debeArrojarExcepcionPorCantidadCarrosMaxima() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO, Constantes.PLACA_VEHICULO_CARRO).build();
 		
 		when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO)).thenReturn(Constantes.CANTIDAD_MAXIMA_CARROS);
 
@@ -101,7 +101,7 @@ public class ValidacionTest {
 	@Test
 	public void debeArrojarExcepcionPorCantidadMotosMaxima() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO, Constantes.PLACA_VEHICULO_MOTO).build();
 		
 		when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_MOTO)).thenReturn(Constantes.CANTIDAD_MAXIMA_MOTOS);
 
@@ -118,7 +118,7 @@ public class ValidacionTest {
 	@Test
 	public void debeValidarCantidadCarrosMenor() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO, Constantes.PLACA_VEHICULO_CARRO).build();
 		
 		when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO)).thenReturn(Constantes.CAPACIDAD_CARROS_MENOR);
 
@@ -135,7 +135,7 @@ public class ValidacionTest {
 	@Test
 	public void debeValidarCantidadMotosMenor() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO, Constantes.PLACA_VEHICULO_MOTO).build();
 		
 		when(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_MOTO)).thenReturn(Constantes.CAPACIDAD_MOTOS_MENOR);
 

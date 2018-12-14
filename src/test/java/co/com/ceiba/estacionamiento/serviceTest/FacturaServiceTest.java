@@ -2,6 +2,9 @@ package co.com.ceiba.estacionamiento.serviceTest;
 
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,7 +64,7 @@ public class FacturaServiceTest {
 	@Test
 	public void debeGenerarUnaNuevaFactura() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_CARRO, Constantes.PLACA_VEHICULO_CARRO).build();
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
 
 		when(facturaRepository.save(Mockito.any(Factura.class))).thenReturn(factura);
@@ -104,15 +107,35 @@ public class FacturaServiceTest {
 	@Test
 	public void debeRetirarVehiculoMoto() {
 		//Arrange
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO, Constantes.PLACA_VEHICULO_MOTO).build();
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
 		
-		when(facturaRepository.consultarFacturaPorPlaca(Constantes.PLACA_VEHICULO_CARRO)).thenReturn(factura);
+		when(facturaRepository.consultarFacturaPorPlaca(Constantes.PLACA_VEHICULO_MOTO)).thenReturn(factura);
 		tiempoFactura.dias = 10;
 		tiempoFactura.horas = 2;
 		
-		FacturaDTO result = facturaService.retirarVehiculo(Constantes.PLACA_VEHICULO_CARRO);
+		FacturaDTO result = facturaService.retirarVehiculo(Constantes.PLACA_VEHICULO_MOTO);
 		
 		Assert.assertTrue(result.getFechaSalida() != null);
+	}
+	
+	@Test
+	public void debeRetornarListaFacturasActivas() {
+		//Arrange
+		List<Factura> listaFacturasActivas = crearListaFacturas();
+		
+		when(facturaRepository.consultarFacturasActivas()).thenReturn(listaFacturasActivas);
+		
+		List<FacturaDTO> result = facturaService.consultarFacturasActivas();
+		
+		Assert.assertEquals(result.size(), listaFacturasActivas.size());
+	}
+
+	private List<Factura> crearListaFacturas() {
+		List<Factura> listaFacturasActivas = new ArrayList<>();
+		listaFacturasActivas.add(mapeoDTO.convertirFacturaDTO(new FacturaTestDataBuilder().build()));
+		listaFacturasActivas.add(mapeoDTO.convertirFacturaDTO(new FacturaTestDataBuilder().porPlaca(Constantes.PLACA_VEHICULO_MOTO).build()));
+		
+		return listaFacturasActivas;
 	}
 }

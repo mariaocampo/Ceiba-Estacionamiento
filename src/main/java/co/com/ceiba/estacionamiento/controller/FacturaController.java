@@ -1,6 +1,8 @@
 package co.com.ceiba.estacionamiento.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,5 +35,10 @@ public class FacturaController {
 	@PostMapping("/retirar_vehiculo")
 	public FacturaDTO retirarVehiculo(@RequestBody String placa) {
 		return facturaService.retirarVehiculo(placa);
+	}
+	
+	@GetMapping("/consultar_vehiculos_en_parqueadero")
+	public List<FacturaDTO> consultarFacturasActivas(){
+		return facturaService.consultarFacturasActivas();
 	}
 }

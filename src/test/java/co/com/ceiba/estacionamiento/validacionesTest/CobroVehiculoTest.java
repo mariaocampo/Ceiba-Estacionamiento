@@ -64,7 +64,7 @@ public class CobroVehiculoTest {
 	
 	@Test
 	public void debeCalcularCobroMotoPor11dias2Horas() {
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO, Constantes.PLACA_VEHICULO_MOTO).build();
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
 		
 		cobroTipoMoto.cobro(Constantes.TIEMPO_FACTURA_TEST, factura);
@@ -74,7 +74,7 @@ public class CobroVehiculoTest {
 	
 	@Test
 	public void debeCalcularCobroMotoPor12dias() {
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO, Constantes.PLACA_VEHICULO_MOTO).build();
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
 		
 		TiempoFactura tiempo = Constantes.TIEMPO_FACTURA_TEST;
@@ -87,7 +87,7 @@ public class CobroVehiculoTest {
 	
 	@Test
 	public void debeCalcularCobroMotoPorHoras() {
-		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO).build();
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porTipo(Constantes.TIPO_VEHICULO_MOTO, Constantes.PLACA_VEHICULO_MOTO).build();
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDto);
 		
 		TiempoFactura tiempo = Constantes.TIEMPO_FACTURA_TEST;

@@ -35,6 +35,7 @@ public class Constantes {
 	
 	//Constantes para pruebas
 	public static final String PLACA_VEHICULO_CARRO = "MAO123";
+	public static final String PLACA_VEHICULO_MOTO = "JAC123";
 	public static final String TIPO_VEHICULO_INVALIDO = "BICICLETA";
 	public static final int CAPACIDAD_CARROS_MENOR = 10;
 	public static final int CAPACIDAD_MOTOS_MENOR = 9;

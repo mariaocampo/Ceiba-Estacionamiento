@@ -29,8 +29,9 @@ public class FacturaTestDataBuilder {
 		return this;
 	}
 	
-	public FacturaTestDataBuilder porTipo(String tipo) {
+	public FacturaTestDataBuilder porTipo(String tipo, String placa) {
 		this.tipo = tipo;
+		this.placa = placa;
 		return this;
 	}
 	
