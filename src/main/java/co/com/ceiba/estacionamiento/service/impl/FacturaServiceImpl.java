@@ -102,7 +102,6 @@ public class FacturaServiceImpl implements FacturaService {
 	@Override
 	public List<FacturaDTO> consultarFacturasActivas() {
 		List<FacturaDTO> listaFacturas = new ArrayList<>();
-
 		for(Factura factura : facturaRepository.consultarFacturasActivas()) {
 			listaFacturas.add(mapeoDTO.convertirFacturaEntidad(factura));
 		}
