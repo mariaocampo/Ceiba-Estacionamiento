@@ -19,7 +19,7 @@ public class ValidarPlaca implements Validacion {
 			boolean esDomingo = facturaDTO.getFechaIngreso().getDayOfWeek().equals(DayOfWeek.SUNDAY);
 			
 			if(!( esLunes || esDomingo )) {
-				if(facturaDTO.getPlaca().startsWith(placaInvalida)) {
+				if(facturaDTO.getPlaca().toUpperCase().startsWith(placaInvalida)) {
 					throw new EstacionamientoException(Constantes.PLACA_INVALIDA_EXCEPTION);
 				}
 			}

@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +15,7 @@ import co.com.ceiba.estacionamiento.dto.FacturaDTO;
 import co.com.ceiba.estacionamiento.service.FacturaService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/factura")
 public class FacturaController {
 
@@ -22,7 +23,7 @@ public class FacturaController {
 	@Qualifier("facturaService")
 	FacturaService facturaService;
 	
-	@PostMapping("/registrar_factura")
+	@RequestMapping("/registrar_factura")
 	public String registrarFactura(@RequestBody FacturaDTO facturaDTO) {
 		return facturaService.registrarFactura(facturaDTO);
 	}
@@ -32,7 +33,7 @@ public class FacturaController {
 		return facturaService.consultarCantidadVehiculosPorTipo(tipo);
 	}
 	
-	@PostMapping("/retirar_vehiculo")
+	@RequestMapping("/retirar_vehiculo")
 	public FacturaDTO retirarVehiculo(@RequestBody String placa) {
 		return facturaService.retirarVehiculo(placa);
 	}
