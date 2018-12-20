@@ -26,7 +26,6 @@ public class Constantes {
 	public static final double LIMITE_CILINDRAJE = 500;
 	public static final int LIMITE_HORAS_COBRO_DIA = 9;
 	
-	
 	//Excepciones
 	public static final String PLACA_INVALIDA_EXCEPTION = "No tiene permisos para ingresar este día";
 	public static final String CAPACIDAD_MAXIMA_CARROS_EXCEPTION = "No hay suficientes espacios para carros disponibles";

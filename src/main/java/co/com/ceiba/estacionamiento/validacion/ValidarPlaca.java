@@ -3,23 +3,21 @@ package co.com.ceiba.estacionamiento.validacion;
 import java.time.DayOfWeek;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.estacionamiento.dto.FacturaDTO;
+import co.com.ceiba.estacionamiento.dto.ValidacionDTO;
 import co.com.ceiba.estacionamiento.entity.Factura;
 import co.com.ceiba.estacionamiento.exception.EstacionamientoException;
-import co.com.ceiba.estacionamiento.repository.FacturaRepository;
 import co.com.ceiba.estacionamiento.utils.Constantes;
 
 @Component
 public class ValidarPlaca implements Validacion {
 
 	@Override
-	public void validar(FacturaDTO facturaDTO, FacturaRepository facturaRepository) {
+	public void validar(FacturaDTO facturaDTO, ValidacionDTO validacionDTO) {
 		
-		validarPlacaResgistrada(facturaDTO, facturaRepository);
+		validarPlacaResgistrada(facturaDTO, validacionDTO.getFactura());
 				
 		for (String placaInvalida: Constantes.PLACA_INVALIDA) {
 			
@@ -34,11 +32,10 @@ public class ValidarPlaca implements Validacion {
 		}		
 	}
 
-	private void validarPlacaResgistrada(FacturaDTO facturaDTO, FacturaRepository facturaRepository) {
-		Factura factura = facturaRepository.consultarFacturaPorPlaca(facturaDTO.getPlaca());
-		if(factura != null) {
-			if(factura.getFechaSalida() != null ) {
-				facturaDTO.setId(factura.getId());
+	private void validarPlacaResgistrada(FacturaDTO facturaDTO, Factura facturaEntity) {
+		if(facturaEntity != null) {
+			if(facturaEntity.getFechaSalida() != null ) {
+				facturaDTO.setId(facturaEntity.getId());
 			}else{
 				throw new EstacionamientoException(Constantes.VEHICULO_ACTIVO_EXCEPTION);
 			}

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import co.com.ceiba.estacionamiento.dto.FacturaDTO;
+import co.com.ceiba.estacionamiento.dto.ValidacionDTO;
 import co.com.ceiba.estacionamiento.entity.Factura;
 import co.com.ceiba.estacionamiento.repository.FacturaRepository;
 import co.com.ceiba.estacionamiento.repository.VehiculoRepository;
@@ -68,8 +69,13 @@ public class FacturaServiceImpl implements FacturaService {
 		validacionesFactura.add(validarPlaca);
 		validacionesFactura.add(validarCantidadVehiculos);
 		
+		ValidacionDTO validacionDTO = new ValidacionDTO();
+		validacionDTO.setCantidadCarros(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO));
+		validacionDTO.setCantidadMotos(facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_MOTO));
+		validacionDTO.setFactura(facturaRepository.consultarFacturaPorPlaca(facturaDTO.getPlaca()));
+		
 		for(Validacion validacion: validacionesFactura) {
-			validacion.validar(facturaDTO, facturaRepository);
+			validacion.validar(facturaDTO,validacionDTO);
 		}
 		
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDTO);
