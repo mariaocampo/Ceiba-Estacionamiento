@@ -46,6 +46,12 @@ public class FacturaTestDataBuilder {
 		this.fechaIngreso = fecha;
 		return this;
 	}
+	
+	public FacturaTestDataBuilder porPlacayFechaSalida(String placa, LocalDateTime fecha) {
+		this.placa = placa;
+		this.fechaSalida = fecha;
+		return this;
+	}
 		
 	public FacturaDTO build() {
 		return new FacturaDTO(id, tipo, placa, cilindraje, fechaIngreso, fechaSalida, precio);

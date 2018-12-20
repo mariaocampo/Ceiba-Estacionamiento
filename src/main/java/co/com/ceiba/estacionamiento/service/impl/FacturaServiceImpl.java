@@ -59,7 +59,7 @@ public class FacturaServiceImpl implements FacturaService {
 	
 	@Override
 	public String registrarFactura(FacturaDTO facturaDTO) {
-		
+				
 		facturaDTO.setFechaIngreso(LocalDateTime.now());
 		facturaDTO.setPrecio(Constantes.PRECIO_REGISTRO_FACTURA);
 		
@@ -69,7 +69,7 @@ public class FacturaServiceImpl implements FacturaService {
 		validacionesFactura.add(validarCantidadVehiculos);
 		
 		for(Validacion validacion: validacionesFactura) {
-			validacion.validar(facturaDTO);
+			validacion.validar(facturaDTO, facturaRepository);
 		}
 		
 		Factura factura = mapeoDTO.convertirFacturaDTO(facturaDTO);

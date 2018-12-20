@@ -32,6 +32,7 @@ public class Constantes {
 	public static final String CAPACIDAD_MAXIMA_CARROS_EXCEPTION = "No hay suficientes espacios para carros disponibles";
 	public static final String CAPACIDAD_MAXIMA_MOTOS_EXCEPTION = "No hay suficientes espacios para motos disponibles";
 	public static final String VEHICULO_NO_PERMITIDO_EXCEPTION = "No se permite este tipo de vehículo";
+	public static final String VEHICULO_ACTIVO_EXCEPTION = "Esta placa se encuentra activa en el parqueadero";
 	
 	//Constantes para pruebas
 	public static final String PLACA_VEHICULO_CARRO = "MAO123";

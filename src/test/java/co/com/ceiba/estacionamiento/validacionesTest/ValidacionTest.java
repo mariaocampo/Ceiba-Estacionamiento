@@ -14,6 +14,7 @@ import co.com.ceiba.estacionamiento.repository.FacturaRepository;
 import co.com.ceiba.estacionamiento.repository.VehiculoRepository;
 import co.com.ceiba.estacionamiento.utils.Constantes;
 import co.com.ceiba.estacionamiento.utils.FacturaTestDataBuilder;
+import co.com.ceiba.estacionamiento.utils.MapeoDTO;
 import co.com.ceiba.estacionamiento.validacion.ValidarCantidadVehiculos;
 import co.com.ceiba.estacionamiento.validacion.ValidarPlaca;
 import co.com.ceiba.estacionamiento.validacion.ValidarTipoVehiculo;
@@ -36,6 +37,8 @@ public class ValidacionTest {
 	@InjectMocks
 	ValidarTipoVehiculo validarTipoVehiculo;
 	
+	MapeoDTO mapeoDTO = new MapeoDTO();
+	
 	@Test
 	public void debeArrojarExcepcionPorTipoVehiculo() {
 		//Arrange
@@ -43,7 +46,7 @@ public class ValidacionTest {
 		
 		try {
 			// Act 
-			validarTipoVehiculo.validar(facturaDto);	
+			validarTipoVehiculo.validar(facturaDto, facturaRepository);	
 		}
 		catch (Exception e) {
 			//Assert
@@ -58,7 +61,7 @@ public class ValidacionTest {
 		
 		try {
 			// Act 
-			validarTipoVehiculo.validar(facturaDto);	
+			validarTipoVehiculo.validar(facturaDto, facturaRepository);	
 		}
 		catch (Exception e) {
 			//Assert
@@ -73,7 +76,7 @@ public class ValidacionTest {
 		
 		try {
 			// Act 
-			validarTipoVehiculo.validar(facturaDto);	
+			validarTipoVehiculo.validar(facturaDto, facturaRepository);	
 		}
 		catch (Exception e) {
 			//Assert
@@ -90,7 +93,7 @@ public class ValidacionTest {
 
 		try{
 			// Act 
-			validarCantidadVehiculos.validar(facturaDto);	
+			validarCantidadVehiculos.validar(facturaDto, facturaRepository);	
 		}
 		catch (Exception e) {
 			//Assert
@@ -107,7 +110,7 @@ public class ValidacionTest {
 
 		try{
 			// Act 
-			validarCantidadVehiculos.validar(facturaDto);	
+			validarCantidadVehiculos.validar(facturaDto, facturaRepository);	
 		}
 		catch (Exception e) {
 			//Assert
@@ -124,7 +127,7 @@ public class ValidacionTest {
 
 		try{
 			// Act 
-			validarCantidadVehiculos.validar(facturaDto);	
+			validarCantidadVehiculos.validar(facturaDto, facturaRepository);	
 		}
 		catch (Exception e) {
 			//Assert
@@ -141,7 +144,7 @@ public class ValidacionTest {
 
 		try{
 			// Act 
-			validarCantidadVehiculos.validar(facturaDto);	
+			validarCantidadVehiculos.validar(facturaDto, facturaRepository);	
 		}
 		catch (Exception e) {
 			//Assert
@@ -153,10 +156,10 @@ public class ValidacionTest {
 	public void debeArrojarExcepcionPorPlacaInvalida() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_NO_PERMITIDA_PLACA_A).build();
-		
+
 		try {
 			//Act
-			validarPlaca.validar(facturaDto);
+			validarPlaca.validar(facturaDto,facturaRepository);
 		} catch (Exception e) {
 			//Assert
 			assertTrue(e.getMessage().equals("No tiene permisos para ingresar este día"));
@@ -167,10 +170,10 @@ public class ValidacionTest {
 	public void debeValidarLosDiasValidosDeLaPlacaLunes() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_PERMITIDA_LUNES_PLACA_A).build();
-		
+
 		try {
 			//Act
-			validarPlaca.validar(facturaDto);
+			validarPlaca.validar(facturaDto, facturaRepository);
 		} catch (Exception e) {
 			//Assert
 			assertTrue(e.getMessage().equals("No tiene permisos para ingresar este día"));
@@ -181,10 +184,10 @@ public class ValidacionTest {
 	public void debeValidarLosDiasValidosDeLaPlacaDomingo() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_INICAL_A, Constantes.FECHA_PERMITIDA_DOMINGO_PLACA_A).build();
-		
+
 		try {
 			//Act
-			validarPlaca.validar(facturaDto);
+			validarPlaca.validar(facturaDto, facturaRepository);
 		} catch (Exception e) {
 			//Assert
 			assertTrue(e.getMessage().equals("No tiene permisos para ingresar este día"));
@@ -195,13 +198,28 @@ public class ValidacionTest {
 	public void debeValidarLosDiasyPlaca() {
 		//Arrange
 		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFecha(Constantes.PLACA_VEHICULO_CARRO, Constantes.FECHA_NO_PERMITIDA_PLACA_A).build();
-		
+
 		try {
 			//Act
-			validarPlaca.validar(facturaDto);
+			validarPlaca.validar(facturaDto, facturaRepository);
 		} catch (Exception e) {
 			//Assert
 			assertTrue(e.getMessage().equals("No tiene permisos para ingresar este día"));
+		}	
+	}
+	
+	@Test
+	public void debeValidarPlacaYaRegistrada() {
+		//Arrange
+		FacturaDTO facturaDto = new FacturaTestDataBuilder().porPlacayFechaSalida(Constantes.PLACA_VEHICULO_CARRO, Constantes.FECHA_NO_PERMITIDA_PLACA_A).build();
+		when(facturaRepository.consultarFacturaPorPlaca(Constantes.PLACA_VEHICULO_CARRO)).thenReturn(mapeoDTO.convertirFacturaDTO(facturaDto));
+
+		try {
+			//Act
+			validarPlaca.validar(facturaDto, facturaRepository);
+		} catch (Exception e) {
+			//Assert
+			assertTrue(e.getMessage().equals("Esta placa se encuentra activa en el parqueadero"));
 		}	
 	}
 	

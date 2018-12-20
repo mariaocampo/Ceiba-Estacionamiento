@@ -27,4 +27,5 @@ public interface FacturaRepository extends JpaRepository<Factura, Long>{
 			value = "SELECT * FROM Factura f LEFT OUTER JOIN Vehiculo v ON v.placa = f.placa WHERE f.fecha_salida IS null",
 			nativeQuery = true)
 	public List<Factura> consultarFacturasActivas();
+	
 }

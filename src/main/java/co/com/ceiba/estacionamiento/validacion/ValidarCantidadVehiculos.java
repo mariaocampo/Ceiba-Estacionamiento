@@ -1,7 +1,5 @@
 package co.com.ceiba.estacionamiento.validacion;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.estacionamiento.dto.FacturaDTO;
@@ -11,14 +9,9 @@ import co.com.ceiba.estacionamiento.utils.Constantes;
 
 @Component
 public class ValidarCantidadVehiculos implements Validacion {
-
-
-	@Autowired
-	@Qualifier("facturaRepository")
-	FacturaRepository facturaRepository;
 	
 	@Override
-	public void validar(FacturaDTO facturaDTO) {
+	public void validar(FacturaDTO facturaDTO, FacturaRepository facturaRepository) {
 		
 		if(facturaDTO.getTipoVehiculo().equals(Constantes.TIPO_VEHICULO_CARRO) && 
 				facturaRepository.consultarCantidadVehiculosPorTipo(Constantes.TIPO_VEHICULO_CARRO) >= Constantes.CANTIDAD_MAXIMA_CARROS) {
